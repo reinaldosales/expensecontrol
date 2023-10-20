@@ -25,7 +25,7 @@ public class CardController : Controller
     public async Task<IActionResult> Index()
     {
         return _context.Cards != null ?
-                    View(await _context.Cards.ToListAsync()) :
+                    View(await _context.Cards.Where(x => x.User == User.Identity.Name).ToListAsync()) :
                     Problem("Entity set 'ApplicationDbContext.Cards'  is null.");
     }
 

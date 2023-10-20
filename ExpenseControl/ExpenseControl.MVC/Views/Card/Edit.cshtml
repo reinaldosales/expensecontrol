@@ -1,64 +1,57 @@
 @model ExpenseControl.MVC.Models.Card
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Editar Cartão";
 }
 
-<h1>Edit</h1>
+<h1>Aqui você poderá editar as informações do seu cartão "@Model.Number"</h1>
 
-<h4>Card</h4>
-<hr />
+<hr/>
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="Id"/>
             <div class="form-group">
                 <label asp-for="Number" class="control-label"></label>
-                <input asp-for="Number" class="form-control" />
+                <input asp-for="Number" class="form-control"/>
                 <span asp-validation-for="Number" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Type" class="control-label"></label>
-                <select asp-for="Type" class="form-control"></select>
-                <span asp-validation-for="Type" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="Brand" class="control-label"></label>
-                <input asp-for="Brand" class="form-control" />
+                <input asp-for="Brand" class="form-control"/>
                 <span asp-validation-for="Brand" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Limit" class="control-label"></label>
-                <input asp-for="Limit" class="form-control" />
+                <input asp-for="Limit" class="form-control"/>
                 <span asp-validation-for="Limit" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Value" class="control-label"></label>
-                <input asp-for="Value" class="form-control" />
+                <input asp-for="Value" class="form-control"/>
                 <span asp-validation-for="Value" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="InvoiceClosingDate" class="control-label"></label>
-                <input asp-for="InvoiceClosingDate" class="form-control" />
+                <input asp-for="InvoiceClosingDate" class="form-control"/>
                 <span asp-validation-for="InvoiceClosingDate" class="text-danger"></span>
             </div>
+
+            <input hidden="" asp-for="User" value="@User.Identity.Name"/>
+
+            <br/>
             <div class="form-group">
-                <label asp-for="User" class="control-label"></label>
-                <input asp-for="User" class="form-control" />
-                <span asp-validation-for="User" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Editar" class="btn btn-primary"/>
             </div>
         </form>
     </div>
 </div>
-
+<br/>
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Voltar</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
 }
