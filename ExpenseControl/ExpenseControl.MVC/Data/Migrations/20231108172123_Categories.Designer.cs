@@ -3,6 +3,7 @@ using System;
 using ExpenseControl.MVC.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ExpenseControl.MVC.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231108172123_Categories")]
+    partial class Categories
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.21");
@@ -69,46 +71,6 @@ namespace ExpenseControl.MVC.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
-                });
-
-            modelBuilder.Entity("ExpenseControl.MVC.Models.Expense", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("ItsPaid")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<short?>("NumberOfInstallments")
-                        .IsRequired()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("PaymentType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("User")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<decimal>("Valor")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
-
-                    b.ToTable("Expenses");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -305,17 +267,6 @@ namespace ExpenseControl.MVC.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
-                });
-
-            modelBuilder.Entity("ExpenseControl.MVC.Models.Expense", b =>
-                {
-                    b.HasOne("ExpenseControl.MVC.Models.Category", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Category");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

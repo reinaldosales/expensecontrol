@@ -12,4 +12,8 @@ public class ApplicationDbContext : IdentityDbContext
     }
 
     public DbSet<Card> Cards { get; set; }
+
+    public DbSet<Category> Categories { get; set; }
+
+    public DbSet<Expense> Expenses { get; set; }
 }

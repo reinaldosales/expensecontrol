@@ -2,10 +2,14 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ExpenseControl.MVC.Data;
 using System.Globalization;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("ApplicagionDbContext") ?? throw new InvalidOperationException("Connection string 'ApplicagionDbContext' not found.")));
 
 // Add services to the container.
+
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite(connectionString));
