@@ -48,7 +48,13 @@ namespace ExpenseControl.MVC.Controllers
         // GET: Expense/Create
         public IActionResult Create()
         {
-            return View();
+            CreateExpenseViewModel expenseViewModel = new CreateExpenseViewModel();
+
+            var categories = _context.Categories.AsNoTracking().ToList();
+
+            expenseViewModel.CategoriesListItem = new SelectList(categories, "Id", "Name", null);
+
+            return View(expenseViewModel);
         }
 
         // POST: Expense/Create
@@ -56,14 +62,19 @@ namespace ExpenseControl.MVC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Valor,Date,Description,PaymentType,NumberOfInstallments,ItsPaid,User")] Expense expense)
+        public async Task<IActionResult> Create([Bind("Id,Valor,Date,Description,PaymentType,NumberOfInstallments,ItsPaid, User")] Expense expense)
         {
-            if (ModelState.IsValid)
+            expense.Category = _context.Categories.FirstOrDefault();
+
+            if (!ModelState.IsValid)
             {
                 _context.Add(expense);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
+            }else{
+                return BadRequest(ModelState);
             }
+
             return View(expense);
         }
 
