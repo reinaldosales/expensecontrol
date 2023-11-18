@@ -20,12 +20,26 @@ public class CategoryController : Controller
     }
 
     // GET: Category
-    public async Task<IActionResult> Index()
+    public async Task<IActionResult> Index(string sortOrder)
     {
-        return _context.Categories != null ?
-                    View(await _context.Categories.Where(x => x.User == User.Identity.Name).ToListAsync()) :
-                    Problem("Entity set 'ApplicagionDbContext.Category'  is null.");
-    }
+        ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+        ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+
+        var categories = from s in _context.Categories.Where(x => x.User == User.Identity.Name)
+                       select s;
+
+        switch (sortOrder)
+        {
+            case "name_desc":
+                categories = categories.OrderByDescending(s => s.Name);
+                break;     
+            default:
+                categories = categories.OrderBy(s => s.Id);
+                break;
+        }
+        
+        return View(categories.ToList());
+     }
 
     // GET: Category/Details/5
     public async Task<IActionResult> Details(int? id)

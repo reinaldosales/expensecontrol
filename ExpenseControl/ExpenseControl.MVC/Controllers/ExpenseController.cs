@@ -23,7 +23,7 @@ namespace ExpenseControl.MVC.Controllers
         public async Task<IActionResult> Index()
         {
               return _context.Expenses != null ? 
-                          View(await _context.Expenses.ToListAsync()) :
+                          View(await _context.Expenses.Where(x => x.User == User.Identity.Name).ToListAsync()) :
                           Problem("Entity set 'ApplicationDbContext.Expenses'  is null.");
         }
 
@@ -106,7 +106,7 @@ namespace ExpenseControl.MVC.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 try
                 {
