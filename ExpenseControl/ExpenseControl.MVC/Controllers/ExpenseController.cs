@@ -50,7 +50,7 @@ namespace ExpenseControl.MVC.Controllers
         {
             CreateExpenseViewModel expenseViewModel = new CreateExpenseViewModel();
 
-            var categories = _context.Categories.AsNoTracking().ToList();
+            var categories = _context.Categories.Where(x => x.User == User.Identity.Name).ToList();
 
             expenseViewModel.CategoriesListItem = new SelectList(categories, "Id", "Name", null);
 
