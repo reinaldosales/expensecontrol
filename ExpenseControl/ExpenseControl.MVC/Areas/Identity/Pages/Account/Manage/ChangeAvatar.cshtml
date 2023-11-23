@@ -1,0 +1,34 @@
+﻿@page
+@using ExpenseControl.MVC.Data;
+@model ChangePasswordModel
+@inject ApplicationDbContext _context
+
+@{
+    ViewData["Title"] = "Mudar avatar";
+    ViewData["ActivePage"] = ManageNavPages.ChangeAvatar;
+}
+
+<h3>@ViewData["Title"]</h3>
+<partial name="_StatusMessage" for="StatusMessage" />
+<div class="row">
+    <div class="col-md-6">
+        <form id="change-password-form" method="post" action="../../../../../Image/Upload" enctype="multipart/form-data">
+
+            <img src="~/avatars/@_context.Users.FirstOrDefault(x => x.Email == User.Identity.Name).Avatar" class="img-fluid" style="border-radius: 50%;" width="50" height="50"/>
+
+            <br />
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <br />
+            <div class="form-floating">
+                <input type="file" name="avatar" />
+            </div>
+            <br />
+            <button type="submit" class="w-100 btn btn-lg btn-primary">Alterar avatar</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

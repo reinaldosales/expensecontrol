@@ -22,9 +22,9 @@ namespace ExpenseControl.MVC.Controllers
         // GET: Expense
         public async Task<IActionResult> Index()
         {
-              return _context.Expenses != null ? 
-                          View(await _context.Expenses.Where(x => x.User == User.Identity.Name).ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.Expenses'  is null.");
+            return _context.Expenses != null ?
+                        View(await _context.Expenses.Where(x => x.User == User.Identity.Name).ToListAsync()) :
+                        Problem("Entity set 'ApplicationDbContext.Expenses'  is null.");
         }
 
         // GET: Expense/Details/5
@@ -71,7 +71,9 @@ namespace ExpenseControl.MVC.Controllers
                 _context.Add(expense);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
-            }else{
+            }
+            else
+            {
                 return BadRequest(ModelState);
             }
 
@@ -161,14 +163,14 @@ namespace ExpenseControl.MVC.Controllers
             {
                 _context.Expenses.Remove(expense);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool ExpenseExists(int id)
         {
-          return (_context.Expenses?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Expenses?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

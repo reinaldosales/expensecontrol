@@ -39,7 +39,8 @@ namespace ExpenseControl.MVC.Data.Migrations
                     TwoFactorEnabled = table.Column<bool>(nullable: false),
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
-                    AccessFailedCount = table.Column<int>(nullable: false)
+                    AccessFailedCount = table.Column<int>(nullable: false),
+                    Avatar = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
